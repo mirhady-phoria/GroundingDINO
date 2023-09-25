@@ -293,7 +293,7 @@ class MetricLogger(object):
         iter_time = SmoothedValue(fmt="{avg:.4f}")
         data_time = SmoothedValue(fmt="{avg:.4f}")
         space_fmt = ":" + str(len(str(len(iterable)))) + "d"
-        if not torch.cuda.is_available():
+        if torch.cuda.is_available():
             log_msg = self.delimiter.join(
                 [
                     header,
@@ -325,7 +325,7 @@ class MetricLogger(object):
             if i % print_freq == 0 or i == len(iterable) - 1:
                 eta_seconds = iter_time.global_avg * (len(iterable) - i)
                 eta_string = str(datetime.timedelta(seconds=int(eta_seconds)))
-                if not torch.cuda.is_available():
+                if torch.cuda.is_available():
                     print_func(
                         log_msg.format(
                             i,
